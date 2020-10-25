@@ -22,6 +22,9 @@ namespace hetedikv2
         public Form1()
         {
             InitializeComponent();
+            Population = GetPopulation(@"C:\Temp\nép.csv");
+            BirthProbabilities = GetBirth(@"C:\Temp\születés.csv");
+            DeathProbabilities = GetDeath(@"C:\Temp\halál.csv");
         }
 
         List<Person> GetPopulation(string csvpath)
@@ -43,6 +46,49 @@ namespace hetedikv2
             }
 
             return population;
+        }
+
+
+        List<BirthProbability> GetBirth(string csvpath)
+        {
+            List<BirthProbability> birth = new List<BirthProbability>();
+
+            using (StreamReader sr = new StreamReader(csvpath, Encoding.Default))
+            {
+                while (!sr.EndOfStream)
+                {
+                    var line = sr.ReadLine().Split(';');
+                    birth.Add(new BirthProbability()
+                    {
+                        age = int.Parse(line[0]),
+                        NbrOfChildren = int.Parse(line[1]),
+                        p = double.Parse(line[2])
+                    });
+                }
+            }
+
+            return birth;
+        }
+
+        List<DeathProbability> GetDeath(string csvpath)
+        {
+            List<DeathProbability> death = new List<DeathProbability>();
+
+            using (StreamReader sr = new StreamReader(csvpath, Encoding.Default))
+            {
+                while (!sr.EndOfStream)
+                {
+                    var line = sr.ReadLine().Split(';');
+                    death.Add(new DeathProbability()
+                    {
+                        Gender = (Gender)Enum.Parse(typeof(Gender), line[1]),
+                        age = int.Parse(line[1]),
+                        p = double.Parse(line[2])
+                    });
+                }
+            }
+
+            return death;
         }
 
         private void Form1_Load(object sender, EventArgs e)
