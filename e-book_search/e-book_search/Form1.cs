@@ -16,5 +16,10 @@ namespace e_book_search
         {
             InitializeComponent();
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
