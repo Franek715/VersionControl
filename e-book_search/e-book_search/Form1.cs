@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using e_book_search.Entities;
 
 namespace e_book_search
@@ -128,7 +129,7 @@ namespace e_book_search
 
             matches = 0;
 
-            String keyword = textBox3.Text;
+            String keyword = textBox3.Text; if (keyword.Length == 0) return;
             String searchIn = (String) listBox2.SelectedItem;
             HashSet<int> result = new HashSet<int>();
 
@@ -289,8 +290,37 @@ namespace e_book_search
                            select x;
 
             dataGridView2.DataSource = output.ToList();
+            chart1.DataSource = output.ToList();
             
-        }
+            var pdfCount = from x in output
+                              where x.Format.Equals(1)
+                              select x;
 
+            var epubCount = from x in output
+                           where x.Format.Equals(2)
+                           select x;
+
+            var mobiCount = from x in output
+                           where x.Format.Equals(3)
+                           select x;
+
+            
+
+            var series = chart1.Series[0];
+            
+            series.ChartType = SeriesChartType.Bar;
+            series.Points.Clear();
+            series.Points.AddXY ("PDF", (double) pdfCount.Count());
+            series.Points.AddXY("EPUB", (double) epubCount.Count());
+            series.Points.AddXY("MOBI", (double) mobiCount.Count());
+            series.BorderWidth = 2;
+            
+
+            var legend = chart1.Legends[0];
+            legend.Enabled = false;
+
+           
+
+        }
     }
 }
