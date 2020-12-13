@@ -14,22 +14,54 @@ namespace e_book_search
 {
     public partial class Form1 : Form
     {
+    
+        Database1Entities1 context = new Database1Entities1();
         public Form1()
         {
             InitializeComponent();
 
-            Database1Entities context = new Database1Entities();
 
             context.ebooks.Load();
 
             ebooksBindingSource.DataSource = context.ebooks.Local;
 
+            String[] a = { "pdf", "epub", "mobi" };
+            int[] b = { 1, 2, 3 };
+            listBox1.DataSource = a;
+
+            
+
             
         }
 
-        public void addEbook(String title, String Author, Format Format)
+        public void addEbook(String title, String author, int format)
         {
-            Opera
+            //context.ebooks.SqlQuery("insert into ebook (title, author, format) values ('" + title + "', '" + author + "', '" + format + "'");
+
+            ebooks ebook = new ebooks();
+            ebook.Title = title;
+            ebook.Author = author;
+            ebook.Format = format;
+            context.ebooks.Local.Add(ebook);
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            GetEbooks();
+        }
+
+        private void GetEbooks()
+        {
+            dataGridView1.DataSource =
+            (
+                from s in context.ebooks
+                select s
+            ).ToList();
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -49,7 +81,30 @@ namespace e_book_search
 
         private void button1_Click(object sender, EventArgs e)
         {
-            addEbook(textBox1.Text, textBox2.Text, (Format) listBox1.SelectedItem);
+            String s = (String) listBox1.SelectedItem;
+            Format i = Format.pdf;
+            switch (s) {
+                case "pdf": 
+                    i = Format.pdf;
+                    break;
+                case "epub":
+                    i = Format.epub;
+                    break;
+                case "mobi":
+                    i = Format.mobi;
+                    break;
+            }
+            addEbook(textBox1.Text, textBox2.Text, (int) i);
+        }
+
+        private void ebooksBindingSource_CurrentChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ebooksBindingSource_CurrentChanged_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
