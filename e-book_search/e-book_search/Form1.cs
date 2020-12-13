@@ -136,86 +136,190 @@ namespace e_book_search
             {
                 for (String s:searchInput)
                     inputSet.add(s.toLowerCase().trim());
-            }
+            }*/
 
 
             int matches;
+            var allBooks = from x in context.ebooks select x;
 
-            for (int i = 0; i < keywords.size(); i++)
+            /*for (int i = 0; i < keywords.size(); i++)
             {
                 String[] actKeywords = keywords.get(i).getKeywords().split(";");
-                matches = 0;
+            
+                         foreach (var x in eredmény)
+            {
+                Trace.WriteLine(x.Nev);
+            }
+            
+             */
+            matches = 0;
 
-                if (!inputSearch.getText().contains("*"))
+            String keyword = textBox3.Text;
+            String searchIn = (String) listBox2.SelectedItem;
+            HashSet<int> result = new HashSet<int>();
+
+
+            if (!keyword.Contains("*"))
+            {
+                foreach (var x in allBooks)
                 {
-                    for (String s: actKeywords)
+                    switch ((String)listBox2.SelectedItem)
                     {
-                        if (inputSet.contains(s.toLowerCase().trim()))
-                        {
-                            matches++;
-                        }
+                        case "Title":
+                            if (x.Title.Contains(keyword.ToLower().Trim()))
+                            {
+                                matches++;
+                                result.Add(x.Id);
+                            }
+                            break;
+
+                        case "Author":
+                            if (x.Author.Contains(keyword.ToLower().Trim()))
+                            {
+                                matches++;
+                                result.Add(x.Id);
+                            }
+                            break;
                     }
                 }
-                else
-                {
-                    for (int j = 0; j < actKeywords.length; j++)
-                    {
-                        for (int k = 0; k < searchInput.length; k++)
-                        {
-                            int index = 0;
-                            boolean noMatch = false;
-                            String temp = "";
-                            boolean asterisk = false;
 
-                            for (int l = 0; l < searchInput[k].length(); l++)
-                            {
-                                String trimmed = actKeywords[j].substring(index, actKeywords[j].length()).toLowerCase().trim();
-                                if (searchInput[k].charAt(l) != '*') temp += searchInput[k].charAt(l);
-                                else
-                                {
-                                    asterisk = true;
-                                    if (trimmed.contains(temp))
-                                    {
-                                        index = actKeywords[j].indexOf(temp);
-                                        temp = "";
-                                    }
-                                    else
-                                    {
-                                        noMatch = true;
-                                        break;
-                                    }
-
-                                }
-
-                                if (l == searchInput[k].length() - 1)
-                                {
-                                    if (!trimmed.substring(trimmed.length() - temp.length()).equals(temp))
-                                    {
-                                        noMatch = true;
-                                        break;
-                                    }
-                                }
-                                else if (asterisk)
-                                {
-                                    if (temp.length() > 0 && !trimmed.substring(index).contains(temp))
-                                    {
-                                        noMatch = true;
-                                        break;
-                                    }
-                                }
-                                else
-                                {
-                                    if (temp.length() > 0 && !trimmed.substring(index, index + temp.length()).contains(temp))
-                                    {
-                                        noMatch = true;
-                                        break;
-                                    }
-                                }
-                            }
-                            if (!noMatch) matches++;
-                        }
-                    }
-                }*/
             }
+
+            else
+            {
+                foreach (var x in allBooks)
+                {
+                    switch ((String)listBox2.SelectedItem)
+                    {
+                        case "Title":
+                            if (x.Title.Contains(keyword.ToLower().Trim()))
+                            {
+
+                                for (int k = 0; k < keyword.Length; k++)
+                                {
+                                    int index = 0;
+                                    bool noMatch = false;
+                                    String temp = "";
+                                    bool asterisk = false;
+
+                                    for (int l = 0; l < keyword.Length; l++)
+                                    {
+                                        String trimmed = x.Title.Substring(index, x.Title.Length).ToLower().Trim();
+                                        if (keyword[l] != '*') temp += keyword[l]; //actKeywords[j] = x.Title
+                                        else
+                                        {
+                                            asterisk = true; //searchInput[k] = keyword
+                                            if (trimmed.Contains(temp))
+                                            {
+                                                index = x.Title.IndexOf(temp);
+                                                temp = "";
+                                            }
+                                            else
+                                            {
+                                                noMatch = true;
+                                                break;
+                                            }
+
+                                        }
+
+                                        if (l == keyword.Length - 1)
+                                        {
+                                            if (!trimmed.Substring(trimmed.Length - temp.Length).Equals(temp))
+                                            {
+                                                noMatch = true;
+                                                break;
+                                            }
+                                        }
+                                        else if (asterisk)
+                                        {
+                                            if (temp.Length > 0 && !trimmed.Substring(index).Contains(temp))
+                                            {
+                                                noMatch = true;
+                                                break;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (temp.Length > 0 && !trimmed.Substring(index, index + temp.Length).Contains(temp))
+                                            {
+                                                noMatch = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (!noMatch) matches++;
+                                    result.Add(x.Id);
+                                }
+
+                            }
+                            break;
+
+                        case "Author":
+                            if (x.Author.Contains(keyword.ToLower().Trim()))
+                            {
+
+                                for (int k = 0; k < keyword.Length; k++)
+                                {
+                                    int index = 0;
+                                    bool noMatch = false;
+                                    String temp = "";
+                                    bool asterisk = false;
+
+                                    for (int l = 0; l < keyword.Length; l++)
+                                    {
+                                        String trimmed = x.Author.Substring(index, x.Author.Length).ToLower().Trim();
+                                        if (keyword[l] != '*') temp += keyword[l]; //actKeywords[j] = x.Author
+                                        else
+                                        {
+                                            asterisk = true; //searchInput[k] = keyword
+                                            if (trimmed.Contains(temp))
+                                            {
+                                                index = x.Author.IndexOf(temp);
+                                                temp = "";
+                                            }
+                                            else
+                                            {
+                                                noMatch = true;
+                                                break;
+                                            }
+
+                                        }
+
+                                        if (l == keyword.Length - 1)
+                                        {
+                                            if (!trimmed.Substring(trimmed.Length - temp.Length).Equals(temp))
+                                            {
+                                                noMatch = true;
+                                                break;
+                                            }
+                                        }
+                                        else if (asterisk)
+                                        {
+                                            if (temp.Length > 0 && !trimmed.Substring(index).Contains(temp))
+                                            {
+                                                noMatch = true;
+                                                break;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (temp.Length > 0 && !trimmed.Substring(index, index + temp.Length).Contains(temp))
+                                            {
+                                                noMatch = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (!noMatch) matches++;
+                                    result.Add(x.Id);
+                                }
+
+                            }
+                            break;
+                    }
+                }
+            }
+        }
+
     }
 }
