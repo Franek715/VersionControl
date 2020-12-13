@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using e_book_search.Entities;
 
 namespace e_book_search
 {
@@ -26,6 +27,11 @@ namespace e_book_search
             
         }
 
+        public void addEbook(String title, String Author, Format Format)
+        {
+            Opera
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -39,6 +45,11 @@ namespace e_book_search
         private void label4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            addEbook(textBox1.Text, textBox2.Text, (Format) listBox1.SelectedItem);
         }
     }
 }

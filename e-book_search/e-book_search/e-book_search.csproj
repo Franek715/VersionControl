@@ -73,6 +73,8 @@
     <Compile Include="ebooks.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Ebook.cs" />
+    <Compile Include="Entities\Format.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
