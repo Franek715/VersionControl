@@ -25,7 +25,7 @@ namespace e_book_search
 
             ebooksBindingSource.DataSource = context.ebooks.Local;
 
-            String[] a = { "pdf", "epub", "mobi" };
+            String[] a = { "pdf    (1)", "epub (2)", "mobi  (3)" };
             int[] b = { 1, 2, 3 };
             listBox1.DataSource = a;
 
@@ -103,6 +103,21 @@ namespace e_book_search
         }
 
         private void ebooksBindingSource_CurrentChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
         {
 
         }
