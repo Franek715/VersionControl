@@ -26,12 +26,13 @@ namespace e_book_search
             ebooksBindingSource.DataSource = context.ebooks.Local;
 
             String[] a = { "pdf    (1)", "epub (2)", "mobi  (3)" };
-            int[] b = { 1, 2, 3 };
             listBox1.DataSource = a;
 
-            
+            String[] b = { "Title", "Author"};
+            listBox2.DataSource = b;
 
-            
+
+
         }
 
         public void addEbook(String title, String author, int format)
@@ -119,7 +120,102 @@ namespace e_book_search
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            getMatches();
         }
+
+        public void getMatches()
+        {
+
+
+           /* ArrayList<File> keywords = new ArrayList<>(db.getAllKeywords());
+            ArrayList<File> files = new ArrayList<>(db.getAllFiles());
+            String[] searchInput = inputSearch.getText().split(";");
+            HashSet<String> inputSet = new HashSet<>();
+
+            if (!inputSearch.getText().contains("*"))
+            {
+                for (String s:searchInput)
+                    inputSet.add(s.toLowerCase().trim());
+            }
+
+
+            int matches;
+
+            for (int i = 0; i < keywords.size(); i++)
+            {
+                String[] actKeywords = keywords.get(i).getKeywords().split(";");
+                matches = 0;
+
+                if (!inputSearch.getText().contains("*"))
+                {
+                    for (String s: actKeywords)
+                    {
+                        if (inputSet.contains(s.toLowerCase().trim()))
+                        {
+                            matches++;
+                        }
+                    }
+                }
+                else
+                {
+                    for (int j = 0; j < actKeywords.length; j++)
+                    {
+                        for (int k = 0; k < searchInput.length; k++)
+                        {
+                            int index = 0;
+                            boolean noMatch = false;
+                            String temp = "";
+                            boolean asterisk = false;
+
+                            for (int l = 0; l < searchInput[k].length(); l++)
+                            {
+                                String trimmed = actKeywords[j].substring(index, actKeywords[j].length()).toLowerCase().trim();
+                                if (searchInput[k].charAt(l) != '*') temp += searchInput[k].charAt(l);
+                                else
+                                {
+                                    asterisk = true;
+                                    if (trimmed.contains(temp))
+                                    {
+                                        index = actKeywords[j].indexOf(temp);
+                                        temp = "";
+                                    }
+                                    else
+                                    {
+                                        noMatch = true;
+                                        break;
+                                    }
+
+                                }
+
+                                if (l == searchInput[k].length() - 1)
+                                {
+                                    if (!trimmed.substring(trimmed.length() - temp.length()).equals(temp))
+                                    {
+                                        noMatch = true;
+                                        break;
+                                    }
+                                }
+                                else if (asterisk)
+                                {
+                                    if (temp.length() > 0 && !trimmed.substring(index).contains(temp))
+                                    {
+                                        noMatch = true;
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    if (temp.length() > 0 && !trimmed.substring(index, index + temp.length()).contains(temp))
+                                    {
+                                        noMatch = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (!noMatch) matches++;
+                        }
+                    }
+                }*/
+            }
     }
 }
