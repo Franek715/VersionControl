@@ -86,6 +86,9 @@
     </Compile>
     <Compile Include="Entities\Ebook.cs" />
     <Compile Include="Entities\Format.cs" />
+    <Compile Include="Entities\SajatForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

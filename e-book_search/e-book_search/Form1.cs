@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ using e_book_search.Entities;
 
 namespace e_book_search
 {
-    public partial class Form1 : Form
+    public partial class Form1 : SajatForm
     {
     
         Database1Entities1 context = new Database1Entities1();
@@ -34,22 +35,32 @@ namespace e_book_search
 
         }
 
-        public void addEbook(String title, String author, int format)
+        public void addEbook(Ebook ebookP)
         {
             //context.ebooks.SqlQuery("insert into ebook (title, author, format) values ('" + title + "', '" + author + "', '" + format + "'");
 
             ebooks ebook = new ebooks();
-            ebook.Title = title;
-            ebook.Author = author;
-            ebook.Format = format;
+            ebook.Title = ebookP.Title;
+            ebook.Author = ebookP.Author;
+            ebook.Format = (int) ebookP.Format;
             context.ebooks.Local.Add(ebook);
             try
             {
                 context.SaveChanges();
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException e)
             {
-                MessageBox.Show(ex.Message);
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
             }
             GetEbooks();
         }
@@ -83,7 +94,7 @@ namespace e_book_search
         {
             String s = (String) listBox1.SelectedItem;
             Format i = Format.pdf;
-            switch (s) {
+            switch (s.Substring(0,s.IndexOf(' '))) {
                 case "pdf": 
                     i = Format.pdf;
                     break;
@@ -94,7 +105,11 @@ namespace e_book_search
                     i = Format.mobi;
                     break;
             }
-            addEbook(textBox1.Text, textBox2.Text, (int) i);
+            addEbook(new Ebook(textBox1.Text, textBox2.Text, i));
+
+            textBox1.Clear();
+            textBox2.Clear();
+            listBox1.ClearSelected();
         }
 
         private void ebooksBindingSource_CurrentChanged(object sender, EventArgs e)
@@ -136,12 +151,23 @@ namespace e_book_search
 
             if (!keyword.Contains("*"))
             {
+                keyword = keyword.ToLower().Trim();
                 foreach (var x in allBooks)
                 {
-                    switch ((String)listBox2.SelectedItem)
+                    String[] array;
+                    switch (searchIn)
                     {
+                        
                         case "Title":
-                            if (x.Title.Contains(keyword.ToLower().Trim()))
+
+                            array = x.Title.Split(' ');
+                            for (int i = 0; i < array.Length; i++) array[i] = array[i].ToLower()
+                                                                                        .Replace('(', ' ').Replace(')', ' ').Replace(',', ' ')
+                                                                                        .Replace('.', ' ').Replace('!', ' ').Replace('?', ' ')
+                                                                                        .Trim();
+                            HashSet<String> title = array.ToHashSet();
+
+                            if (title.Contains(keyword))
                             {
                                 matches++;
                                 result.Add(x.Id);
@@ -149,7 +175,16 @@ namespace e_book_search
                             break;
 
                         case "Author":
-                            if (x.Author.Contains(keyword.ToLower().Trim()))
+
+                            array = x.Author.Split(' ');
+                            for (int i = 0; i < array.Length; i++) array[i] = array[i]  .ToLower()
+                                                                                        .Replace('(', ' ')  .Replace(')', ' ')  .Replace(',', ' ')
+                                                                                        .Replace('.', ' ')  .Replace('!', ' ')  .Replace('?', ' ')
+                                                                                        .Replace('#', ' ')  .Replace(':', ' ')
+                                                                                        .Trim();
+                            HashSet<String> author = array.ToHashSet();
+
+                            if (author.Contains(keyword))
                             {
                                 matches++;
                                 result.Add(x.Id);
@@ -164,15 +199,21 @@ namespace e_book_search
             {
                 foreach (var x in allBooks)
                 {
-                    switch ((String)listBox2.SelectedItem)
+                    int index;
+                    bool noMatch;
+                    String temp;
+                    bool asterisk;
+
+                    switch (searchIn)
                     {
+
                         case "Title":
-                            for (int k = 0; k < keyword.Length; k++)
-                            {
-                                int index = 0;
-                                bool noMatch = false;
-                                String temp = "";
-                                bool asterisk = false;
+                            //for (int k = 0; k < keyword.Length; k++)
+                            //{
+                                index = 0;
+                                noMatch = false;
+                                temp = "";
+                                asterisk = false;
 
                                 for (int l = 0; l < keyword.Length; l++)
                                 {
@@ -219,18 +260,17 @@ namespace e_book_search
                                         }
                                     }
                                 }
-                                if (!noMatch) matches++;
-                                result.Add(x.Id);
-                            }                           
+                                if (!noMatch) { matches++; result.Add(x.Id); }
+                            //}                           
                         break;
 
                         case "Author":
-                            for (int k = 0; k < keyword.Length; k++)
-                            {
-                                int index = 0;
-                                bool noMatch = false;
-                                String temp = "";
-                                bool asterisk = false;
+                            //for (int k = 0; k < keyword.Length; k++)
+                            //{
+                                index = 0;
+                                noMatch = false;
+                                temp = "";
+                                asterisk = false;
 
                                 for (int l = 0; l < keyword.Length; l++)
                                 {
@@ -277,9 +317,8 @@ namespace e_book_search
                                         }
                                     }
                                 }
-                                if (!noMatch) matches++;
-                                result.Add(x.Id);
-                            }
+                                if (!noMatch) { matches++; result.Add(x.Id); }
+                            //}
                         break;
                     }
                 }

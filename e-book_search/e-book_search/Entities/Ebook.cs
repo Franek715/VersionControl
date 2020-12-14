@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace e_book_search.Entities
 {
-    class Ebook
+    public class Ebook
     {
         public String Title { get; set; }
         public String Author { get; set; }
