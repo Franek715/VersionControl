@@ -29,70 +29,69 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea10 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend10 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            this.displayAllBooks = new System.Windows.Forms.DataGridView();
             this.ebooksBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.displaySearchResult = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.inputTitle = new System.Windows.Forms.TextBox();
+            this.inputAuthor = new System.Windows.Forms.TextBox();
+            this.inputFormatList = new System.Windows.Forms.ListBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.inputSearch = new System.Windows.Forms.TextBox();
+            this.addEbookButton = new System.Windows.Forms.Button();
+            this.searchButton = new System.Windows.Forms.Button();
+            this.chooseAuthorList = new System.Windows.Forms.ListBox();
+            this.formatChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.authorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.formatDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.displayAllBooks)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ebooksBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.displaySearchResult)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.formatChart)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // displayAllBooks
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AutoGenerateColumns = false;
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.SaddleBrown;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.displayAllBooks.AllowUserToAddRows = false;
+            this.displayAllBooks.AutoGenerateColumns = false;
+            this.displayAllBooks.BackgroundColor = System.Drawing.Color.SaddleBrown;
+            this.displayAllBooks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.displayAllBooks.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.idDataGridViewTextBoxColumn,
             this.titleDataGridViewTextBoxColumn,
             this.authorDataGridViewTextBoxColumn,
             this.formatDataGridViewTextBoxColumn});
-            this.dataGridView1.DataSource = this.ebooksBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(361, 12);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.ShowEditingIcon = false;
-            this.dataGridView1.Size = new System.Drawing.Size(891, 395);
-            this.dataGridView1.TabIndex = 0;
+            this.displayAllBooks.DataSource = this.ebooksBindingSource;
+            this.displayAllBooks.Location = new System.Drawing.Point(361, 12);
+            this.displayAllBooks.Name = "displayAllBooks";
+            this.displayAllBooks.RowHeadersWidth = 51;
+            this.displayAllBooks.RowTemplate.Height = 24;
+            this.displayAllBooks.ShowEditingIcon = false;
+            this.displayAllBooks.Size = new System.Drawing.Size(891, 395);
+            this.displayAllBooks.TabIndex = 0;
             // 
             // ebooksBindingSource
             // 
             this.ebooksBindingSource.DataSource = typeof(e_book_search.ebooks);
-            this.ebooksBindingSource.CurrentChanged += new System.EventHandler(this.ebooksBindingSource_CurrentChanged_1);
             // 
-            // dataGridView2
+            // displaySearchResult
             // 
-            this.dataGridView2.BackgroundColor = System.Drawing.Color.SaddleBrown;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(362, 463);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.RowHeadersWidth = 51;
-            this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(890, 174);
-            this.dataGridView2.TabIndex = 1;
+            this.displaySearchResult.BackgroundColor = System.Drawing.Color.SaddleBrown;
+            this.displaySearchResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.displaySearchResult.Location = new System.Drawing.Point(362, 463);
+            this.displaySearchResult.Name = "displaySearchResult";
+            this.displaySearchResult.RowHeadersWidth = 51;
+            this.displaySearchResult.RowTemplate.Height = 24;
+            this.displaySearchResult.Size = new System.Drawing.Size(890, 174);
+            this.displaySearchResult.TabIndex = 1;
             // 
             // label1
             // 
@@ -103,7 +102,6 @@
             this.label1.Size = new System.Drawing.Size(272, 32);
             this.label1.TabIndex = 2;
             this.label1.Text = "Register an e-book";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -131,32 +129,31 @@
             this.label4.Size = new System.Drawing.Size(56, 17);
             this.label4.TabIndex = 5;
             this.label4.Text = "Format:";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
-            // textBox1
+            // inputTitle
             // 
-            this.textBox1.Location = new System.Drawing.Point(75, 80);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(209, 22);
-            this.textBox1.TabIndex = 6;
+            this.inputTitle.Location = new System.Drawing.Point(75, 80);
+            this.inputTitle.Name = "inputTitle";
+            this.inputTitle.Size = new System.Drawing.Size(209, 22);
+            this.inputTitle.TabIndex = 6;
             // 
-            // textBox2
+            // inputAuthor
             // 
-            this.textBox2.Location = new System.Drawing.Point(75, 122);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(209, 22);
-            this.textBox2.TabIndex = 7;
+            this.inputAuthor.Location = new System.Drawing.Point(75, 122);
+            this.inputAuthor.Name = "inputAuthor";
+            this.inputAuthor.Size = new System.Drawing.Size(209, 22);
+            this.inputAuthor.TabIndex = 7;
             // 
-            // listBox1
+            // inputFormatList
             // 
-            this.listBox1.DisplayMember = "Format";
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(75, 169);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(63, 52);
-            this.listBox1.TabIndex = 8;
-            this.listBox1.ValueMember = "Format";
+            this.inputFormatList.DisplayMember = "Format";
+            this.inputFormatList.FormattingEnabled = true;
+            this.inputFormatList.ItemHeight = 16;
+            this.inputFormatList.Location = new System.Drawing.Point(75, 169);
+            this.inputFormatList.Name = "inputFormatList";
+            this.inputFormatList.Size = new System.Drawing.Size(63, 52);
+            this.inputFormatList.TabIndex = 8;
+            this.inputFormatList.ValueMember = "Format";
             // 
             // label5
             // 
@@ -167,65 +164,63 @@
             this.label5.Size = new System.Drawing.Size(105, 32);
             this.label5.TabIndex = 9;
             this.label5.Text = "Search";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
-            // textBox3
+            // inputSearch
             // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBox3.Location = new System.Drawing.Point(90, 336);
-            this.textBox3.MinimumSize = new System.Drawing.Size(4, 30);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(194, 30);
-            this.textBox3.TabIndex = 10;
-            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
+            this.inputSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.inputSearch.Location = new System.Drawing.Point(90, 336);
+            this.inputSearch.MinimumSize = new System.Drawing.Size(4, 30);
+            this.inputSearch.Name = "inputSearch";
+            this.inputSearch.Size = new System.Drawing.Size(194, 30);
+            this.inputSearch.TabIndex = 10;
             // 
-            // button1
+            // addEbookButton
             // 
-            this.button1.Location = new System.Drawing.Point(182, 178);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(92, 36);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "ADD";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.addEbookButton.Location = new System.Drawing.Point(182, 178);
+            this.addEbookButton.Name = "addEbookButton";
+            this.addEbookButton.Size = new System.Drawing.Size(92, 36);
+            this.addEbookButton.TabIndex = 11;
+            this.addEbookButton.Text = "ADD";
+            this.addEbookButton.UseVisualStyleBackColor = true;
+            this.addEbookButton.Click += new System.EventHandler(this.addEbookButton_Click);
             // 
-            // button2
+            // searchButton
             // 
-            this.button2.Location = new System.Drawing.Point(152, 377);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(44, 30);
-            this.button2.TabIndex = 12;
-            this.button2.Text = "OK";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.searchButton.Location = new System.Drawing.Point(152, 377);
+            this.searchButton.Name = "searchButton";
+            this.searchButton.Size = new System.Drawing.Size(44, 30);
+            this.searchButton.TabIndex = 12;
+            this.searchButton.Text = "OK";
+            this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
-            // listBox2
+            // chooseAuthorList
             // 
-            this.listBox2.DisplayMember = "Format";
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 16;
-            this.listBox2.Location = new System.Drawing.Point(29, 334);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(63, 36);
-            this.listBox2.TabIndex = 13;
-            this.listBox2.ValueMember = "Format";
+            this.chooseAuthorList.DisplayMember = "Format";
+            this.chooseAuthorList.FormattingEnabled = true;
+            this.chooseAuthorList.ItemHeight = 16;
+            this.chooseAuthorList.Location = new System.Drawing.Point(29, 334);
+            this.chooseAuthorList.Name = "chooseAuthorList";
+            this.chooseAuthorList.Size = new System.Drawing.Size(63, 36);
+            this.chooseAuthorList.TabIndex = 13;
+            this.chooseAuthorList.ValueMember = "Format";
             // 
-            // chart1
+            // formatChart
             // 
-            chartArea10.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea10);
-            this.chart1.DataSource = this.ebooksBindingSource;
-            legend10.Name = "Legend1";
-            this.chart1.Legends.Add(legend10);
-            this.chart1.Location = new System.Drawing.Point(29, 463);
-            this.chart1.Name = "chart1";
-            series10.ChartArea = "ChartArea1";
-            series10.Legend = "Legend1";
-            series10.Name = "Series1";
-            this.chart1.Series.Add(series10);
-            this.chart1.Size = new System.Drawing.Size(255, 174);
-            this.chart1.TabIndex = 14;
-            this.chart1.Text = "chart1";
+            chartArea3.Name = "ChartArea1";
+            this.formatChart.ChartAreas.Add(chartArea3);
+            this.formatChart.DataSource = this.ebooksBindingSource;
+            legend3.Name = "Legend1";
+            this.formatChart.Legends.Add(legend3);
+            this.formatChart.Location = new System.Drawing.Point(29, 463);
+            this.formatChart.Name = "formatChart";
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.formatChart.Series.Add(series3);
+            this.formatChart.Size = new System.Drawing.Size(255, 174);
+            this.formatChart.TabIndex = 14;
+            this.formatChart.Text = "chart1";
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -267,28 +262,27 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(1264, 649);
-            this.Controls.Add(this.chart1);
-            this.Controls.Add(this.listBox2);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.formatChart);
+            this.Controls.Add(this.chooseAuthorList);
+            this.Controls.Add(this.searchButton);
+            this.Controls.Add(this.addEbookButton);
+            this.Controls.Add(this.inputSearch);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.inputFormatList);
+            this.Controls.Add(this.inputAuthor);
+            this.Controls.Add(this.inputTitle);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dataGridView2);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.displaySearchResult);
+            this.Controls.Add(this.displayAllBooks);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.displayAllBooks)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ebooksBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.displaySearchResult)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.formatChart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -296,22 +290,22 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridView displayAllBooks;
+        private System.Windows.Forms.DataGridView displaySearchResult;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.TextBox inputTitle;
+        private System.Windows.Forms.TextBox inputAuthor;
+        private System.Windows.Forms.ListBox inputFormatList;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox inputSearch;
+        private System.Windows.Forms.Button addEbookButton;
         private System.Windows.Forms.BindingSource ebooksBindingSource;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.Button searchButton;
+        private System.Windows.Forms.ListBox chooseAuthorList;
+        private System.Windows.Forms.DataVisualization.Charting.Chart formatChart;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn titleDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn authorDataGridViewTextBoxColumn;

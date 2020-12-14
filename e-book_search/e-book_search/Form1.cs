@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using e_book_search.Entities;
@@ -28,22 +24,64 @@ namespace e_book_search
             ebooksBindingSource.DataSource = context.ebooks.Local;
 
             String[] a = { "pdf    (1)", "epub (2)", "mobi  (3)" };
-            listBox1.DataSource = a;
+            inputFormatList.DataSource = a;
 
             String[] b = { "Title", "Author"};
-            listBox2.DataSource = b;
+            chooseAuthorList.DataSource = b;
+
+        }
+
+
+        private void addEbookButton_Click(object sender, EventArgs e)
+        {
+            String s = (String) inputFormatList.SelectedItem;
+            Format i = Format.pdf;
+
+            if(!(s.Length > 0 && inputTitle.Text.Length > 0 && inputAuthor.Text.Length > 0)) { MessageBox.Show("Valamelyik mező üres"); return; }
+
+            switch (s.Substring(0,s.IndexOf(' '))) {
+                case "pdf": 
+                    i = Format.pdf;
+                    break;
+                case "epub":
+                    i = Format.epub;
+                    break;
+                case "mobi":
+                    i = Format.mobi;
+                    break;
+            }
+            addEbook(new Ebook(inputTitle.Text, inputAuthor.Text, i));
+
+            inputTitle.Clear();
+            inputAuthor.Clear();
+            inputFormatList.ClearSelected();
+        }
+
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            getMatches();
+        }
+
+        private void GetEbooks()
+        {
+            displayAllBooks.DataSource =
+            (
+                from s in context.ebooks
+                select s
+            ).ToList();
 
         }
 
         public void addEbook(Ebook ebookP)
         {
-            //context.ebooks.SqlQuery("insert into ebook (title, author, format) values ('" + title + "', '" + author + "', '" + format + "'");
-
             ebooks ebook = new ebooks();
             ebook.Title = ebookP.Title;
             ebook.Author = ebookP.Author;
-            ebook.Format = (int) ebookP.Format;
+            ebook.Format = (int)ebookP.Format;
+
             context.ebooks.Local.Add(ebook);
+
             try
             {
                 context.SaveChanges();
@@ -65,78 +103,6 @@ namespace e_book_search
             GetEbooks();
         }
 
-        private void GetEbooks()
-        {
-            dataGridView1.DataSource =
-            (
-                from s in context.ebooks
-                select s
-            ).ToList();
-            
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            String s = (String) listBox1.SelectedItem;
-            Format i = Format.pdf;
-            switch (s.Substring(0,s.IndexOf(' '))) {
-                case "pdf": 
-                    i = Format.pdf;
-                    break;
-                case "epub":
-                    i = Format.epub;
-                    break;
-                case "mobi":
-                    i = Format.mobi;
-                    break;
-            }
-            addEbook(new Ebook(textBox1.Text, textBox2.Text, i));
-
-            textBox1.Clear();
-            textBox2.Clear();
-            listBox1.ClearSelected();
-        }
-
-        private void ebooksBindingSource_CurrentChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ebooksBindingSource_CurrentChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            getMatches();
-        }
-
         public void getMatches()
         {
             int matches;
@@ -144,8 +110,8 @@ namespace e_book_search
 
             matches = 0;
 
-            String keyword = textBox3.Text; if (keyword.Length == 0) return;
-            String searchIn = (String) listBox2.SelectedItem;
+            String keyword = inputSearch.Text; if (keyword.Length == 0) return;
+            String searchIn = (String) chooseAuthorList.SelectedItem;
             HashSet<int> result = new HashSet<int>();
 
 
@@ -328,8 +294,8 @@ namespace e_book_search
                            where result.Contains(x.Id)
                            select x;
 
-            dataGridView2.DataSource = output.ToList();
-            chart1.DataSource = output.ToList();
+            displaySearchResult.DataSource = output.ToList();
+            formatChart.DataSource = output.ToList();
             
             var pdfCount = from x in output
                               where x.Format.Equals(1)
@@ -345,7 +311,7 @@ namespace e_book_search
 
             
 
-            var series = chart1.Series[0];
+            var series = formatChart.Series[0];
             
             series.ChartType = SeriesChartType.Bar;
             series.Points.Clear();
@@ -355,7 +321,7 @@ namespace e_book_search
             series.BorderWidth = 2;
             
 
-            var legend = chart1.Legends[0];
+            var legend = formatChart.Legends[0];
             legend.Enabled = false;
 
            
