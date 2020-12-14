@@ -25,6 +25,8 @@ namespace e_book_search
 
             String[] a = { "pdf    (1)", "epub (2)", "mobi  (3)" };
             inputFormatList.DataSource = a;
+            inputFormatList.ClearSelected();
+
 
             String[] b = { "Title", "Author"};
             chooseAuthorList.DataSource = b;
@@ -63,15 +65,6 @@ namespace e_book_search
             getMatches();
         }
 
-        private void GetEbooks()
-        {
-            displayAllBooks.DataSource =
-            (
-                from s in context.ebooks
-                select s
-            ).ToList();
-
-        }
 
         public void addEbook(Ebook ebookP)
         {
@@ -101,6 +94,16 @@ namespace e_book_search
                 throw;
             }
             GetEbooks();
+        }
+
+        private void GetEbooks()
+        {
+            displayAllBooks.DataSource =
+            (
+                from s in context.ebooks
+                select s
+            ).ToList();
+
         }
 
         public void getMatches()
@@ -174,8 +177,7 @@ namespace e_book_search
                     {
 
                         case "Title":
-                            //for (int k = 0; k < keyword.Length; k++)
-                            //{
+
                                 index = 0;
                                 noMatch = false;
                                 temp = "";
@@ -226,13 +228,12 @@ namespace e_book_search
                                         }
                                     }
                                 }
-                                if (!noMatch) { matches++; result.Add(x.Id); }
-                            //}                           
-                        break;
+
+                            if (!noMatch) { matches++; result.Add(x.Id); }                          
+                            break;
 
                         case "Author":
-                            //for (int k = 0; k < keyword.Length; k++)
-                            //{
+
                                 index = 0;
                                 noMatch = false;
                                 temp = "";
@@ -283,9 +284,9 @@ namespace e_book_search
                                         }
                                     }
                                 }
-                                if (!noMatch) { matches++; result.Add(x.Id); }
-                            //}
-                        break;
+
+                            if (!noMatch) { matches++; result.Add(x.Id); }
+                            break;
                     }
                 }
             }
@@ -315,9 +316,9 @@ namespace e_book_search
             
             series.ChartType = SeriesChartType.Bar;
             series.Points.Clear();
-            series.Points.AddXY ("PDF", (double) pdfCount.Count());
+            series.Points.AddXY("MOBI", (double)mobiCount.Count());
             series.Points.AddXY("EPUB", (double) epubCount.Count());
-            series.Points.AddXY("MOBI", (double) mobiCount.Count());
+            series.Points.AddXY("PDF", (double)pdfCount.Count());
             series.BorderWidth = 2;
             
 
