@@ -192,7 +192,7 @@ namespace e_book_search
                                         asterisk = true; //searchInput[k] = keyword
                                         if (trimmed.Contains(temp))
                                         {
-                                            index = x.Title.IndexOf(temp);
+                                            index = x.Title.ToLower().Trim().IndexOf(temp);
                                             temp = "";
                                         }
                                         else
@@ -248,7 +248,7 @@ namespace e_book_search
                                         asterisk = true; //searchInput[k] = keyword
                                         if (trimmed.Contains(temp))
                                         {
-                                            index = x.Author.IndexOf(temp);
+                                            index = x.Author.ToLower().Trim().IndexOf(temp);
                                             temp = "";
                                         }
                                         else
