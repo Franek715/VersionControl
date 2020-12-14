@@ -168,9 +168,10 @@ namespace e_book_search
             {
                 foreach (var x in allBooks)
                 {
-                    int index;
+                    int index = 0;
                     bool noMatch;
                     String temp;
+                    String trimmed;
                     bool asterisk;
 
                     switch (searchIn)
@@ -178,22 +179,28 @@ namespace e_book_search
 
                         case "Title":
 
-                                index = 0;
                                 noMatch = false;
                                 temp = "";
                                 asterisk = false;
+                                trimmed = x.Title;
 
                                 for (int l = 0; l < keyword.Length; l++)
                                 {
-                                    String trimmed = x.Title.Substring(index, x.Title.Length).ToLower().Trim();
-                                    if (keyword[l] != '*') temp += keyword[l]; //actKeywords[j] = x.Title
-                                    else
+                                    trimmed = trimmed.Substring(index).ToLower().Trim();
+                                    index = 0;
+
+                                if (keyword[l] != '*')  temp += keyword[l];
+                                else
                                     {
-                                        asterisk = true; //searchInput[k] = keyword
+                                        asterisk = true;
                                         if (trimmed.Contains(temp))
                                         {
-                                            index = x.Title.ToLower().Trim().IndexOf(temp);
-                                            temp = "";
+                                            if (temp != "")
+                                            {
+                                                index = trimmed.ToLower().Trim().IndexOf(temp) + 1;
+                                                temp = "";
+                                            }
+
                                         }
                                         else
                                         {
@@ -203,7 +210,7 @@ namespace e_book_search
 
                                     }
 
-                                    if (l == keyword.Length - 1)
+                                 if (l == keyword.Length - 1 )
                                     {
                                         if (!trimmed.Substring(trimmed.Length - temp.Length).Equals(temp))
                                         {
@@ -213,7 +220,7 @@ namespace e_book_search
                                     }
                                     else if (asterisk)
                                     {
-                                        if (temp.Length > 0 && !trimmed.Substring(index).Contains(temp))
+                                        if (temp.Length > 0 && !trimmed.Contains(temp))
                                         {
                                             noMatch = true;
                                             break;
@@ -221,7 +228,7 @@ namespace e_book_search
                                     }
                                     else
                                     {
-                                        if (temp.Length > 0 && !trimmed.Substring(index, index + temp.Length).Contains(temp))
+                                        if (temp.Length > 0 && !trimmed.Substring(0, temp.Length).Contains(temp))
                                         {
                                             noMatch = true;
                                             break;
@@ -234,59 +241,67 @@ namespace e_book_search
 
                         case "Author":
 
-                                index = 0;
-                                noMatch = false;
-                                temp = "";
-                                asterisk = false;
+                            noMatch = false;
+                            temp = "";
+                            asterisk = false;
+                            trimmed = x.Author;
 
-                                for (int l = 0; l < keyword.Length; l++)
+
+                            for (int l = 0; l < keyword.Length; l++)
+                            {
+
+                                trimmed = trimmed.Substring(index).ToLower().Trim();
+                                index = 0;
+
+                                if (keyword[l] != '*') temp += keyword[l];
+                                else
                                 {
-                                    String trimmed = x.Author.Substring(index, x.Author.Length).ToLower().Trim();
-                                    if (keyword[l] != '*') temp += keyword[l]; //actKeywords[j] = x.Author
-                                    else
+                                    asterisk = true;
+                                    if (trimmed.Contains(temp))
                                     {
-                                        asterisk = true; //searchInput[k] = keyword
-                                        if (trimmed.Contains(temp))
+                                        if (temp != "")
                                         {
-                                            index = x.Author.ToLower().Trim().IndexOf(temp);
+                                            index = trimmed.ToLower().Trim().IndexOf(temp) + 1;
                                             temp = "";
                                         }
-                                        else
-                                        {
-                                            noMatch = true;
-                                            break;
-                                        }
-
-                                    }
-
-                                    if (l == keyword.Length - 1)
-                                    {
-                                        if (!trimmed.Substring(trimmed.Length - temp.Length).Equals(temp))
-                                        {
-                                            noMatch = true;
-                                            break;
-                                        }
-                                    }
-                                    else if (asterisk)
-                                    {
-                                        if (temp.Length > 0 && !trimmed.Substring(index).Contains(temp))
-                                        {
-                                            noMatch = true;
-                                            break;
-                                        }
                                     }
                                     else
                                     {
-                                        if (temp.Length > 0 && !trimmed.Substring(index, index + temp.Length).Contains(temp))
-                                        {
-                                            noMatch = true;
-                                            break;
-                                        }
+                                        noMatch = true;
+                                        break;
+                                    }
+
+                                }
+
+                                if (l == keyword.Length - 1)
+                                {
+                                    if (!trimmed.Substring(trimmed.Length - temp.Length).Equals(temp))
+                                    {
+                                        noMatch = true;
+                                        break;
+                                    }
+                                }
+                                else if (asterisk)
+                                {
+                                    if (temp.Length > 0 && !trimmed.Contains(temp))
+                                    {
+                                        noMatch = true;
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    if (temp.Length > 0 && !trimmed.Substring(0, temp.Length).Contains(temp))
+                                    {
+                                        noMatch = true;
+                                        break;
                                     }
                                 }
 
-                            if (!noMatch) { matches++; result.Add(x.Id); }
-                            break;
+                            }
+
+                        if (!noMatch) { matches++; result.Add(x.Id); }
+                        break;
                     }
                 }
             }
