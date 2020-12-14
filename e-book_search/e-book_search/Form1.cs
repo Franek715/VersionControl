@@ -168,7 +168,7 @@ namespace e_book_search
             {
                 foreach (var x in allBooks)
                 {
-                    int index;
+                    int index = 0;
                     bool noMatch;
                     String temp;
                     bool asterisk;
@@ -178,21 +178,22 @@ namespace e_book_search
 
                         case "Title":
 
-                                index = 0;
                                 noMatch = false;
                                 temp = "";
                                 asterisk = false;
 
                                 for (int l = 0; l < keyword.Length; l++)
                                 {
-                                    String trimmed = x.Title.Substring(index, x.Title.Length).ToLower().Trim();
+                                    String trimmed = x.Title.Substring(index).ToLower().Trim();
+                                    index = 0;
+
                                     if (keyword[l] != '*') temp += keyword[l]; //actKeywords[j] = x.Title
                                     else
                                     {
                                         asterisk = true; //searchInput[k] = keyword
                                         if (trimmed.Contains(temp))
                                         {
-                                            index = x.Title.IndexOf(temp);
+                                            index = trimmed.ToLower().Trim().IndexOf(temp) + 1;
                                             temp = "";
                                         }
                                         else
@@ -234,21 +235,23 @@ namespace e_book_search
 
                         case "Author":
 
-                                index = 0;
                                 noMatch = false;
                                 temp = "";
                                 asterisk = false;
 
                                 for (int l = 0; l < keyword.Length; l++)
                                 {
-                                    String trimmed = x.Author.Substring(index, x.Author.Length).ToLower().Trim();
-                                    if (keyword[l] != '*') temp += keyword[l]; //actKeywords[j] = x.Author
+                                    
+                                    String trimmed = x.Author.Substring(index).ToLower().Trim();
+                                    index = 0;
+
+                                if (keyword[l] != '*') temp += keyword[l]; //actKeywords[j] = x.Author
                                     else
                                     {
                                         asterisk = true; //searchInput[k] = keyword
                                         if (trimmed.Contains(temp))
                                         {
-                                            index = x.Author.IndexOf(temp);
+                                            index = trimmed.ToLower().Trim().IndexOf(temp) +1;
                                             temp = "";
                                         }
                                         else
@@ -283,7 +286,8 @@ namespace e_book_search
                                             break;
                                         }
                                     }
-                                }
+                                
+                            }
 
                             if (!noMatch) { matches++; result.Add(x.Id); }
                             break;
