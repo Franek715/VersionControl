@@ -171,6 +171,7 @@ namespace e_book_search
                     int index = 0;
                     bool noMatch;
                     String temp;
+                    String trimmed;
                     bool asterisk;
 
                     switch (searchIn)
@@ -181,20 +182,25 @@ namespace e_book_search
                                 noMatch = false;
                                 temp = "";
                                 asterisk = false;
+                                trimmed = x.Title;
 
                                 for (int l = 0; l < keyword.Length; l++)
                                 {
-                                    String trimmed = x.Title.Substring(index).ToLower().Trim();
+                                    trimmed = trimmed.Substring(index).ToLower().Trim();
                                     index = 0;
 
-                                    if (keyword[l] != '*') temp += keyword[l]; //actKeywords[j] = x.Title
-                                    else
+                                if (keyword[l] != '*')  temp += keyword[l];  //actKeywords[j] = x.Title
+                                else
                                     {
                                         asterisk = true; //searchInput[k] = keyword
                                         if (trimmed.Contains(temp))
                                         {
-                                            index = trimmed.ToLower().Trim().IndexOf(temp) + 1;
-                                            temp = "";
+                                            if (temp != "")
+                                            {
+                                                index = trimmed.ToLower().Trim().IndexOf(temp) + 1;
+                                                temp = "";
+                                            }
+
                                         }
                                         else
                                         {
@@ -204,7 +210,7 @@ namespace e_book_search
 
                                     }
 
-                                    if (l == keyword.Length - 1)
+                                 if (l == keyword.Length - 1 )
                                     {
                                         if (!trimmed.Substring(trimmed.Length - temp.Length).Equals(temp))
                                         {
@@ -214,7 +220,7 @@ namespace e_book_search
                                     }
                                     else if (asterisk)
                                     {
-                                        if (temp.Length > 0 && !trimmed.Substring(index).Contains(temp))
+                                        if (temp.Length > 0 && !trimmed.Contains(temp))
                                         {
                                             noMatch = true;
                                             break;
@@ -222,7 +228,7 @@ namespace e_book_search
                                     }
                                     else
                                     {
-                                        if (temp.Length > 0 && !trimmed.Substring(index, index + temp.Length).Contains(temp))
+                                        if (temp.Length > 0 && !trimmed.Substring(0, temp.Length).Contains(temp))
                                         {
                                             noMatch = true;
                                             break;
@@ -242,7 +248,7 @@ namespace e_book_search
                                 for (int l = 0; l < keyword.Length; l++)
                                 {
                                     
-                                    String trimmed = x.Author.Substring(index).ToLower().Trim();
+                                    trimmed = x.Author.Substring(index).ToLower().Trim();
                                     index = 0;
 
                                 if (keyword[l] != '*') temp += keyword[l]; //actKeywords[j] = x.Author
@@ -251,7 +257,7 @@ namespace e_book_search
                                         asterisk = true; //searchInput[k] = keyword
                                         if (trimmed.Contains(temp))
                                         {
-                                            index = trimmed.ToLower().Trim().IndexOf(temp) +1;
+                                            index = trimmed.ToLower().Trim().IndexOf(temp) + 1;
                                             temp = "";
                                         }
                                         else
